@@ -1,0 +1,16 @@
+<div class="container">
+    <h5>Lista</h5>
+    <ul>
+        <li *ngFor="let l of listagem">
+            Codigo: {{l.id}}
+            <br />
+            {{l.nome}}
+            <br/>
+            {{l.email}}
+            <br/>
+            Limite: {{l.limite | currency}}
+            <hr/>
+        </li>
+    </ul>
+</div>
+

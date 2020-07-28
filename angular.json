@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ConsumoAPI"
+    }
+  },
+  "defaultProject": "ConsumoAPI",
+  "cli": {
+    "analytics": "b622b7a8-767e-462c-b0d2-334e5a03f6be"
+  }
 }
