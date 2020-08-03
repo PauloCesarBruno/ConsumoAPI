@@ -10,6 +10,7 @@ export class ListagemComponent implements OnInit {
 
   listagem: Array<any>;
 
+
   constructor(private listagemService: ListagemService) { }
 
   ngOnInit(): void {
@@ -19,6 +20,15 @@ export class ListagemComponent implements OnInit {
   // tslint:disable-next-line: typedef
   listar(){
     this.listagemService.listar().subscribe(dados => this.listagem = dados);
+  }
+
+  // tslint:disable-next-line: typedef
+  editar(){
+
+  }
+  // tslint:disable-next-line: typedef
+  excluir(){
+
   }
 
 }

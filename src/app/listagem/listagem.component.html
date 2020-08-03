@@ -1,6 +1,6 @@
 <div class="container">
     <h5>Lista</h5>
-    <ul>
+   <!-- <ul>
         <li *ngFor="let l of listagem">
             Codigo: {{l.id}}
             <br />
@@ -11,6 +11,27 @@
             Limite: {{l.limite | currency}}
             <hr/>
         </li>
-    </ul>
+    </ul> -->
+    <div cllas="table-responsive">
+       <table class="table table-striped">
+           <thead class="thead-light">
+               <td>Cód.</td>
+               <td>Nome</td>
+               <td>Email</td>
+               <td>Limite</td>
+           </thead>
+           
+           <tbody *ngFor="let l of listagem">
+                <td>{{l.id}}</td>
+               <td>{{l.nome}}</td>
+               <td>{{l.email}}</td>
+               <td>{{l.limite | currency}}</td>
+               <div class="btn-group">
+                   <button class="btn btn-success" (click)="editar()">Editar</button>
+                   <button class="btn btn-danger ml-3" (click)="excluir()">Exluir</button>
+               </div>
+           </tbody>
+       </table>
+    </div>
 </div>
 
