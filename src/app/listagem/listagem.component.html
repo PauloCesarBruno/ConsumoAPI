@@ -1,25 +1,33 @@
 <div class="container">
     <br />
-    <h4>Lista</h4>  
-    <br />
+    <div class="form-inline">
+        <div class="form-group mb-2"> 
+           <label style="color: red;" class="mr-2">Filtro de Busca: </label>      
+        <input type="text" class="form-control mr-2"
+        [(ngModel)] = "filtroLista" placeholder="Nome">
+    </div>
+    </div>
+    <h5>{{filtroLista}}</h5>
     <div class="table-responsive">
        <table class="table table-striped">
-           <thead class="thead-light">
+           <thead class="thead-ligth">
                <td><strong>Cód.</strong></td>
                <td><strong>Nome</strong></td>
-               <td><strong></strong>Email</td>
-               <td>Limite</td>
+               <td><strong>Email</strong></td>
+               <td><strong>Limite</strong></td>
            </thead>
            
-           <tbody *ngFor="let l of listagem">
+           <tbody>
+               <tr  *ngFor="let l of listagemFiltrada">
                <td>{{l.id}}</td>
                <td>{{l.nome}}</td>
                <td>{{l.email}}</td>
                <td>{{l.limite | currency:'BRL':true}}</td>
-               <div class="btn-group">
-                   <button class="btn btn-success mt-1" (click)="editar()">Editar</button>
-                   <button class="btn btn-danger ml-3 mt-1" (click)="excluir()">Exluir</button>
-               </div>
+               <td class="btn-group">
+                <button class="btn btn-success" (click)="editar()">Editar</button>
+                <button class="btn btn-danger ml-2" (click)="excluir()">Exluir</button>
+            </td>
+            </tr>               
            </tbody>
        </table>
     </div>
