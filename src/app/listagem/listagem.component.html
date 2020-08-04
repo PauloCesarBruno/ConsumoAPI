@@ -1,18 +1,7 @@
 <div class="container">
-    <h5>Lista</h5>
-   <!-- <ul>
-        <li *ngFor="let l of listagem">
-            Codigo: {{l.id}}
-            <br />
-            {{l.nome}}
-            <br/>
-            {{l.email}}
-            <br/>
-            Limite: {{l.limite | currency}}
-            <hr/>
-        </li>
-    </ul> -->
-    <div cllas="table-responsive">
+    <br />
+    <h5>Lista</h5>  
+    <div class="table-responsive">
        <table class="table table-striped">
            <thead class="thead-light">
                <td>Cód.</td>
@@ -22,7 +11,7 @@
            </thead>
            
            <tbody *ngFor="let l of listagem">
-                <td>{{l.id}}</td>
+               <td>{{l.id}}</td>
                <td>{{l.nome}}</td>
                <td>{{l.email}}</td>
                <td>{{l.limite | currency}}</td>
