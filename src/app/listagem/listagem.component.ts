@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListagemService } from '../listagem.service';
-import { HttpClient } from '@angular/common/http';
+import { Listagem } from '../_models/listagem';
 
 @Component({
   selector: 'app-listagem',
@@ -9,9 +9,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ListagemComponent implements OnInit {
 
-  listagem: any = [];
+  listagem: Listagem[];
 
-  listagemFiltrada: any = [];
+  listagemFiltrada: Listagem [];
   // Encapsulando o filtroLista(toeydatabinding)
   // tslint:disable-next-line: variable-name
   _filtroLista: string;
@@ -24,13 +24,13 @@ export class ListagemComponent implements OnInit {
   }
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private listagemServices: ListagemService) { }
 
   ngOnInit(): void {
     this.listar();
   }
 
-  filtrarLista(filtrarPor: string): any {
+  filtrarLista(filtrarPor: string): Listagem [] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.listagem.filter(
       listagem => listagem.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
@@ -39,8 +39,10 @@ export class ListagemComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   listar(){
-    this.http.get('http://localhost:5100/API/Api').subscribe(Response => {
-      this.listagem = Response;
+    this.listagemServices.listar().subscribe(
+      // tslint:disable-next-line: variable-name
+      (_listagem: Listagem[]) => {
+      this.listagem = _listagem;
       this.listagemFiltrada = this.listagem;
     });
   }

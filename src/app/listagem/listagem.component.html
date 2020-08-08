@@ -22,7 +22,7 @@
                <td>{{l.id}}</td>
                <td>{{l.nome}}</td>
                <td>{{l.email}}</td>
-               <td>{{l.limite | currency:'BRL':true}}</td>
+               <td>{{l.limite | currency:'BRL':'symbol':'0.2-2':'pt'}}</td>
                <td class="btn-group">
                 <button class="btn btn-success" (click)="editar()">Editar</button>
                 <button class="btn btn-danger ml-2" (click)="excluir()">Exluir</button>

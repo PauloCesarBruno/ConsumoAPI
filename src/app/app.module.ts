@@ -8,6 +8,11 @@ import { ListagemComponent } from './listagem/listagem.component';
 import { ListagemService } from './listagem.service';
 import { HttpClientModule } from '@angular/common/http';
 
+// Os Import´s Abaixo são para o PIPE de moéda Brasilera...
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localePt);
+
 @NgModule({
   declarations: [
     AppComponent,
