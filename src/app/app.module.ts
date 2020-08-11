@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Adcionado para usar o FormsMudule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Adcionado para usar o FormsMudule
+import { ModalModule } from 'ngx-bootstrap/modal'; // Para Trabalhar com o Modal do ngx.bootstrapp
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,12 +18,14 @@ registerLocaleData(localePt);
   declarations: [
     AppComponent,
     ListagemComponent
-  ],
+   ],
   imports: [
     BrowserModule,
+    ModalModule.forRoot(), // Para Trabalhar com o Modal do ngx.bootstrapp
     HttpClientModule,
     AppRoutingModule,
-    FormsModule // Adcionado para usar o FormsMudule
+    FormsModule, // Adcionado para usar o FormsMudule
+    ReactiveFormsModule // Adcionado para usar o FormsMudule
   ],
   providers: [ ListagemService ],
   bootstrap: [AppComponent]

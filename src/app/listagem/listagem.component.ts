@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ListagemService } from '../listagem.service';
 import { Listagem } from '../_models/listagem';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-listagem',
@@ -12,7 +14,16 @@ export class ListagemComponent implements OnInit {
   listagem: Listagem[];
   listagemId: Listagem[]; // Criado para filtrar por código
 
+  modalRef: BsModalRef; // Para Trabalhar com o Modal do ngx.bootstrapp
+  registerForm: FormGroup; // Para trabalhar com Reactive Forms
+
   listagemFiltrada: Listagem [];
+
+  constructor(
+    private listagemServices: ListagemService,
+    private modalService: BsModalService
+  ) { }
+
   // Encapsulando o filtroLista(toeydatabinding)
   // tslint:disable-next-line: variable-name
   _filtroLista: string;
@@ -37,8 +48,11 @@ export class ListagemComponent implements OnInit {
     this.listagemFiltradaId = this.filtroListaId ? this.filtrarListaId(this.filtroListaId) : this.listagemId;
   }
 
-
-  constructor(private listagemServices: ListagemService) { }
+  // Para Trabalhar com o Modal do ngx.bootstrapp
+  // tslint:disable-next-line: typedef
+  openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
+  }
 
   ngOnInit(): void {
     this.listar();
@@ -59,6 +73,26 @@ export class ListagemComponent implements OnInit {
     );
   }
 
+  // Para Utilizar o Ractive Forms
+  // tslint:disable-next-line: typedef
+  validatio(){
+    this.registerForm = new FormGroup({
+      // tslint:disable-next-line: new-parens
+      id: new FormControl,
+      // tslint:disable-next-line: new-parens
+      nome: new FormControl,
+      // tslint:disable-next-line: new-parens
+      email: new FormControl,
+      // tslint:disable-next-line: new-parens
+      limite: new FormControl
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  salvarAlteracao(){
+
+  }
+
   // tslint:disable-next-line: typedef
   listar(){
     this.listagemServices.listar().subscribe(
@@ -67,15 +101,6 @@ export class ListagemComponent implements OnInit {
       this.listagem = _listagem;
       this.listagemFiltrada = this.listagem;
     });
-  }
-
-  // tslint:disable-next-line: typedef
-  editar(){
-
-  }
-  // tslint:disable-next-line: typedef
-  excluir(){
-
   }
 
 }
