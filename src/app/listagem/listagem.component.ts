@@ -10,6 +10,7 @@ import { Listagem } from '../_models/listagem';
 export class ListagemComponent implements OnInit {
 
   listagem: Listagem[];
+  listagemId: Listagem[]; // Criado para filtrar por código
 
   listagemFiltrada: Listagem [];
   // Encapsulando o filtroLista(toeydatabinding)
@@ -23,6 +24,19 @@ export class ListagemComponent implements OnInit {
     this.listagemFiltrada = this.filtroLista ? this.filtrarLista(this.filtroLista) : this.listagem;
   }
 
+  // Criado para filtrar por código
+  listagemFiltradaId: Listagem [];
+  // Encapsulando o filtroLista(toeydatabinding)
+  // tslint:disable-next-line: variable-name
+  _filtroListaId: string;
+  get filtroListaId(): string {
+    return this._filtroListaId;
+  }
+  set filtroListaId(value: string) {
+    this._filtroListaId = value;
+    this.listagemFiltradaId = this.filtroListaId ? this.filtrarListaId(this.filtroListaId) : this.listagemId;
+  }
+
 
   constructor(private listagemServices: ListagemService) { }
 
@@ -34,6 +48,14 @@ export class ListagemComponent implements OnInit {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.listagem.filter(
       listagem => listagem.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
+
+  // Criado para filtrar por código
+  filtrarListaId(filtrarPor: string): Listagem [] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.listagem.filter(
+      listagem => listagem.id.toString().indexOf(filtrarPor) !== -1
     );
   }
 

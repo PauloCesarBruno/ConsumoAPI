@@ -2,34 +2,54 @@
     <br />
     <div class="form-inline">
         <div class="form-group mb-2"> 
-           <label style="color: red;" class="mr-2">Filtro de Busca: </label>      
-        <input type="text" class="form-control mr-2"
-        [(ngModel)] = "filtroLista" placeholder="Nome">
-    </div>
+            <label style="color: red;" class="mr-2">Filtro de Busca: </label>      
+            <input type="text" class="form-control mr-2"
+            [(ngModel)] = "filtroLista" placeholder="Por Nome">
+      
+            <input type="text" class="form-control mr-2"
+            [(ngModel)] = "filtroListaId" placeholder="Por Código">           
+        </div>
     </div>
     <h5>{{filtroLista}}</h5>
+    <h5>{{filtroListaId}}</h5> <!--Criado para filtrar por código-->
     <div class="table-responsive">
-       <table class="table table-striped">
-           <thead class="thead-ligth">
-               <td><strong>Cód.</strong></td>
-               <td><strong>Nome</strong></td>
-               <td><strong>Email</strong></td>
-               <td><strong>Limite</strong></td>
-           </thead>
-           
-           <tbody>
-               <tr  *ngFor="let l of listagemFiltrada">
-               <td>{{l.id}}</td>
-               <td>{{l.nome}}</td>
-               <td>{{l.email}}</td>
-               <td>{{l.limite | currency:'BRL':'symbol':'0.2-2':'pt'}}</td>
-               <td class="btn-group">
-                <button class="btn btn-success" (click)="editar()">Editar</button>
-                <button class="btn btn-danger ml-2" (click)="excluir()">Exluir</button>
-            </td>
-            </tr>               
-           </tbody>
-       </table>
+        <table class="table table-bordered">
+            <thead class="thead-ligth">
+                <tr>
+                    <th><strong>Cód.</strong></th>
+                    <th><strong>Nome Completo</strong></th>
+                    <th><strong>Email</strong></th>
+                    <th><strong>Limite de Credito</strong></th>
+                    <th style="text-align: center;"><strong>Opções</strong></th>             
+                </tr>               
+            </thead>
+            
+            <br />
+            
+            <tbody *ngIf="listagem && listagem.length">
+
+                <tr  *ngFor="let l of listagemFiltradaId ||  listagemFiltrada">
+                    <td>{{l.id}}</td>
+                    <td>{{l.nome}}</td>
+                    <td>{{l.email}}</td>
+                    <td>{{l.limite | currency:'BRL':'symbol':'0.2-2':'pt'}}</td> <!--Modelo de PIPE moéda Brasileira-->
+                    <td>
+                        <div class="btn-group ml-5">
+                            <button class="btn btn-sm btn-success" (click)="editar()">Editar</button>
+                            <button class="btn btn-sm btn-danger ml-1" (click)="excluir()">Exluir</button>
+                        </div>
+                    </td>
+                </tr>               
+            </tbody>
+
+            <!--Para dar uma mensagem ao usuário enquanto carrega a API-->
+            <tfoot *ngIf="!listagem">
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <h4>Carregando Banco de Dados ...</h4>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>
-
