@@ -35,6 +35,7 @@
                     <td>{{l.limite | currency:'BRL':'symbol':'0.2-2':'pt'}}</td> <!--Modelo de PIPE moéda Brasileira-->
                     <td>
                         <div class="btn-group ml-5">
+                            <!--Se quisesse poderia usar o ToolTip do ngx-bootstrapp-->
                             <button class="btn btn-sm btn-success" (click)="openModal(template)"> <i class="fa fa-edit"></i> Editar</button>
                             <button class="btn btn-sm btn-danger ml-1"><i class="fa fa-eraser"></i> Exluir</button>
                         </div>
@@ -47,6 +48,7 @@
                 <tr>
                     <td colspan="7" class="text-center">
                         <h4>Carregando Banco de Dados ...</h4>
+                        <p>Se isso demorar mais do que alguns minuros, houve FALHA no Sistema ou não há DADOS no mesmo.</p>
                     </td>
                 </tr>
             </tfoot>
@@ -54,51 +56,81 @@
     </div>
 </div>
 
-<!--Para Trabalhar com o Modal do ngx.bootstrapp-->
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left"> Manipulação:</h4>
-        <button type="button" class="close pull-right"
-        aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<!--Para Trabalhar com o Modal código exemplo do ngx.bootstrapp-->
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Manipulação</h4>
+        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
 </div>
 
-<div class="modal-body">
-    Modal
-</div>
-</ng-template>
-
-
-<form [formGroup]= "registerForm">
-    <div class="form-row">
-        <div class="form-group col-md-1">
-            <label>Código</label>
-            <input type="text" class="form-control" formControlName = "id">
-        </div>
-    </div>  
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label>Nome Completo</label>
-            <input type="text" class="form-control" formControlName = "nome">
+<div class="container">
+    <form [formGroup]= "registerForm">
+        <div class="form-row">
+            <div class="form-group col-md-1">
+                <label>Código</label>
+                <input type="text" class="form-control" formControlName = "id">
+            </div>
+        </div>  
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label>Nome Completo</label><!--Abaixo [ngClas]... para fazer o validation no type script funcionar-->
+                <input type="text" class="form-control"
+                [ngClass]= "{'is-invalid': registerForm.get('nome').errors
+                && registerForm.get('nome').touched}"
+                formControlName = "nome">
+                <div *ngIf="registerForm.get('nome').hasError('required') && registerForm.get('nome').touched"
+                class="invalid-feedback">
+                Campo Obrigatório !
+            </div>
         </div>
         <div class="form-group col-3">
-            <label>Email</label>
-            <input type="text" class="form-control" formControlName = "email">
+            <label>Email</label><!--Abaixo [ngClas]... para fazer o validation no type script funcionar-->
+            <input type="text" class="form-control"
+            [ngClass]= "{'is-invalid': registerForm.get('email').errors
+            && registerForm.get('email').touched}"
+            formControlName="email">
+            <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched"
+            class="invalid-feedback">
+            Campo Obrigatório !
         </div>
-        <div class="form-group col-2">
-            <label>Limite de Crédito</label>
-            <input type="text" class="form-control" formControlName = "limite">
-        </div>
-    </div>  
-    
-</form>
+        <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched"
+        class="invalid-feedback">
+        O Email tem que possuir um formato válido !
+    </div>
+</div>
+<div class="form-group col-2">
+    <label>Limite</label><!--Abaixo [ngClas]... para fazer o validation no type script funcionar-->
+    <input type="text" class="form-control"
+    [ngClass]= "{'is-invalid': registerForm.get('limite').errors
+    && registerForm.get('limite').touched}"
+    formControlName="limite">
+    <div *ngIf="registerForm.get('nome').hasError('required') && registerForm.get('nome').touched"
+    class="invalid-feedback">
+    Campo Obrigatório !
+</div>   
+
+</div>
+
+</div>      
 <br>
 <button class="btn btn-secondary" (click)="openModal(template)">
     Fechar
 </button>
-<button class="btn btn-primary" (click)="salvarAlteracao()">
+<button class="btn btn-primary" [disabled] = "!registerForm.valid" (click)="salvarAlteracao()">
     Salvar Alterações
 </button>
 <br>
 <br>
+</form>

@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ListagemService } from '../listagem.service';
 import { Listagem } from '../_models/listagem';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-listagem',
@@ -14,14 +14,15 @@ export class ListagemComponent implements OnInit {
   listagem: Listagem[];
   listagemId: Listagem[]; // Criado para filtrar por código
 
-  modalRef: BsModalRef; // Para Trabalhar com o Modal do ngx.bootstrapp
+
   registerForm: FormGroup; // Para trabalhar com Reactive Forms
 
   listagemFiltrada: Listagem [];
 
   constructor(
     private listagemServices: ListagemService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private fb: FormBuilder // Para o Validation
   ) { }
 
   // Encapsulando o filtroLista(toeydatabinding)
@@ -50,18 +51,19 @@ export class ListagemComponent implements OnInit {
 
   // Para Trabalhar com o Modal do ngx.bootstrapp
   // tslint:disable-next-line: typedef
-  openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
+  openModal(template: any){
+    template.show();
   }
 
   ngOnInit(): void {
+    this.validation();
     this.listar();
   }
 
   filtrarLista(filtrarPor: string): Listagem [] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.listagem.filter(
-      listagem => listagem.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    listagem => listagem.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
 
@@ -69,22 +71,22 @@ export class ListagemComponent implements OnInit {
   filtrarListaId(filtrarPor: string): Listagem [] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.listagem.filter(
-      listagem => listagem.id.toString().indexOf(filtrarPor) !== -1
+    listagem => listagem.id.toString().indexOf(filtrarPor) !== -1
     );
   }
 
   // Para Utilizar o Ractive Forms
   // tslint:disable-next-line: typedef
-  validatio(){
-    this.registerForm = new FormGroup({
+  validation(){
+    this.registerForm = this.fb.group({
       // tslint:disable-next-line: new-parens
-      id: new FormControl,
+      id: [''],
       // tslint:disable-next-line: new-parens
-      nome: new FormControl,
+      nome: ['', Validators.required],
       // tslint:disable-next-line: new-parens
-      email: new FormControl,
+      email: ['', [Validators.required, Validators.email]],
       // tslint:disable-next-line: new-parens
-      limite: new FormControl
+      limite: ['', Validators.required]
     });
   }
 
