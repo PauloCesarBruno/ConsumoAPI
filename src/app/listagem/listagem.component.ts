@@ -38,7 +38,7 @@ export class ListagemComponent implements OnInit {
 
   // Criado para filtrar por código
   listagemFiltradaId: Listagem [];
-  // Encapsulando o filtroLista(toeydatabinding)
+  // Encapsulando o filtroLista(tweydatabinding)
   // tslint:disable-next-line: variable-name
   _filtroListaId: string;
   get filtroListaId(): string {
