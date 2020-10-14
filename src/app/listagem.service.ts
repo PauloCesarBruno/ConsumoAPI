@@ -8,6 +8,7 @@ import { Listagem } from '../app/_models/listagem';
 })
 export class ListagemService {
 
+  // Localhost 5100 hospedado no IIS
   BaseUrl = 'http://localhost:5100/API/Api';
 
   constructor(private http: HttpClient) { }
