@@ -12,10 +12,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class ListagemComponent implements OnInit {
 
   listagem: Listagem[];
-  listagemId: Listagem[]; // Criado para filtrar por código
+  listagemId: Listagem[]; // Criado para filtrar por código...
 
 
-  registerForm: FormGroup; // Para trabalhar com Reactive Forms
+  registerForm: FormGroup; // Para trabalhar com Reactive Forms...
 
   listagemFiltrada: Listagem [];
 
